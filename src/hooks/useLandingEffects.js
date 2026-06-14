@@ -180,14 +180,14 @@ export default function useLandingEffects(rootRef) {
         card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-8px)`;
         card.style.boxShadow = '0 26px 50px -16px rgba(37,99,235,.34)';
         card.style.borderColor = 'rgba(96,165,250,.55)';
-        if (img) img.style.transform = 'scale(1.12)';
+        if (img) img.style.transform = 'scale(1.08)';
         if (glare) glare.style.background = `radial-gradient(circle at ${px * 100}% ${py * 100}%, rgba(255,255,255,.5), transparent 55%)`;
       };
       const onCardLeave = () => {
         card.style.transform = 'translateY(0)';
         card.style.boxShadow = 'var(--shadow-md)';
         card.style.borderColor = '#DCE9F7';
-        if (img) img.style.transform = 'scale(1.04)';
+        if (img) img.style.transform = 'scale(1.0)';
         if (glare) glare.style.background = 'transparent';
       };
       card.addEventListener('mousemove', onCardMove);

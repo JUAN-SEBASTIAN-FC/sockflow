@@ -1,0 +1,162 @@
+/* Lightbox para visualizar imagen de producto en pantalla completa. */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 40px);
+  background: rgba(10, 15, 30, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: lbFadeIn 0.2s ease;
+  cursor: zoom-out;
+}
+
+@keyframes lbFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lightbox__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: min(700px, 90vw);
+  width: 100%;
+  cursor: default;
+  animation: lbSlideUp 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes lbSlideUp {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Imagen ───────────────────────────────────────────── */
+.lightbox__img-wrap {
+  width: 100%;
+  background: radial-gradient(120% 100% at 50% 20%, #eff6ff, #dce9f7 65%, #e7e3fb);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px -20px rgba(30, 58, 138, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 4vw, 40px);
+  min-height: clamp(260px, 50vw, 520px);
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: clamp(240px, 48vw, 480px);
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+  filter: drop-shadow(0 20px 40px rgba(30, 58, 138, 0.2));
+  animation: lbImgIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.05s both;
+}
+
+@keyframes lbImgIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Info del producto ───────────────────────────────── */
+.lightbox__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 14px 20px;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.lightbox__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.lightbox__cat {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: rgba(37, 99, 235, 0.25);
+  color: #93c5fd;
+}
+
+.lightbox__price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: #7dd3fc;
+}
+
+/* ── Botón cerrar ─────────────────────────────────────── */
+.lightbox__close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  color: #1e293b;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  z-index: 10;
+}
+.lightbox__close:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: scale(1.08);
+}
+
+/* ── Hint teclado ────────────────────────────────────── */
+.lightbox__hint {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+}
+
+/* ── Móvil ───────────────────────────────────────────── */
+@media (max-width: 479px) {
+  .lightbox__close {
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .lightbox__info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

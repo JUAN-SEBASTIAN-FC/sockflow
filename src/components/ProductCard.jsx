@@ -1,11 +1,6 @@
 import './ProductCard.css';
 
-/**
- * Tarjeta de producto del catálogo. Los colores de los badges, el filtro de la
- * imagen y los puntos de colorway se aplican desde el hook `useLandingEffects`
- * leyendo los `data-*`, ya que dependen de cada producto.
- */
-export default function ProductCard({ product: p }) {
+export default function ProductCard({ product: p, onImageClick }) {
   return (
     <article
       className="product"
@@ -22,13 +17,20 @@ export default function ProductCard({ product: p }) {
       data-delay={p.delay}
     >
       <div className="product__glare" data-glare />
-      <div className="product__media">
+
+      <div className="product__media" onClick={() => onImageClick?.(p)}>
         <span className="product__cat" data-catbadge>{p.cat}</span>
         <span className="product__status" data-statusbadge>
           <span className="product__status-dot" data-statusdot />{p.status}
         </span>
         <img className="product__img" data-pimg src="assets/sock.png" alt={p.name} />
+        <span className="product__zoom-hint">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3M11 8v6M8 11h6" />
+          </svg>
+        </span>
       </div>
+
       <div className="product__body">
         <div className="product__row">
           <h3 className="product__name">{p.name}</h3>
