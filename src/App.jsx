@@ -1,34 +1,65 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+import { useAuth } from './context/AuthContext';
 import useLandingEffects from './hooks/useLandingEffects';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Catalog from './components/Catalog';
-import StockDashboard from './components/StockDashboard';
 import FinalCta from './components/FinalCta';
 import Footer from './components/Footer';
 import Login from './components/Login';
+import CatalogPage from './pages/CatalogPage';
+import AdminPage from './pages/AdminPage';
 
-export default function App() {
+function Landing({ onLoginOpen }) {
   const rootRef = useRef(null);
   useLandingEffects(rootRef);
-
-  const [loginOpen, setLoginOpen] = useState(false);
 
   return (
     <div ref={rootRef} id="sf-root" className="sf-root">
       <div className="sf-halo" data-halo />
-
-      <Nav onLoginOpen={() => setLoginOpen(true)} />
+      <Nav onLoginOpen={onLoginOpen} />
       <Hero />
       <Features />
       <Catalog />
-      <StockDashboard />
       <FinalCta />
       <Footer />
+    </div>
+  );
+}
+
+function ProtectedRoute({ children }) {
+  const { user, loading } = useAuth();
+  if (loading) return null; // espera a resolver la sesión antes de redirigir
+  return user ? children : <Navigate to="/" replace />;
+}
+
+export default function App() {
+  const [loginOpen, setLoginOpen] = useState(false);
+  const { user } = useAuth();
+
+  // Si el usuario inicia sesión mientras el modal está abierto, cerrarlo
+  useEffect(() => { if (user) setLoginOpen(false); }, [user]);
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Landing onLoginOpen={() => setLoginOpen(true)} />} />
+        <Route path="/catalogo" element={<CatalogPage />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
 
       {loginOpen && <Login onClose={() => setLoginOpen(false)} />}
-    </div>
+    </>
   );
 }

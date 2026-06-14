@@ -23,7 +23,7 @@ export default function ProductCard({ product: p, onImageClick }) {
         <span className="product__status" data-statusbadge>
           <span className="product__status-dot" data-statusdot />{p.status}
         </span>
-        <img className="product__img" data-pimg src="assets/sock.png" alt={p.name} />
+        <img className="product__img" data-pimg src={p.image_url || 'assets/sock.png'} alt={p.name} />
         <span className="product__zoom-hint">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3M11 8v6M8 11h6" />

@@ -1,6 +1,28 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
 export default function Login({ onClose }) {
+  const { login }  = useAuth();
+  const navigate   = useNavigate();
+  const [email,    setEmail]    = useState('');
+  const [password, setPassword] = useState('');
+  const [error,    setError]    = useState('');
+  const [busy,     setBusy]     = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email.trim() || !password) { setError('Completa todos los campos.'); return; }
+    setBusy(true);
+    setError('');
+    const result = await login(email.trim(), password);
+    setBusy(false);
+    if (result?.error) { setError('Correo o contraseña incorrectos.'); return; }
+    onClose?.();
+    navigate('/admin');
+  };
+
   return (
     <div className="login-overlay" onClick={(e) => e.target === e.currentTarget && onClose?.()}>
       <div className="login-card" role="dialog" aria-modal="true" aria-labelledby="login-title">
@@ -11,22 +33,19 @@ export default function Login({ onClose }) {
           </svg>
         </button>
 
-        {/* Marca */}
         <div className="login-card__brand">
           <div className="login-card__logo">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
-              <path d="M8 12h8M12 8v8" />
+              <rect x="3" y="3" width="18" height="18" rx="3" /><path d="M9 12l2 2 4-4" />
             </svg>
           </div>
           <span className="login-card__brand-name">Medias Tuluá</span>
         </div>
 
         <h2 id="login-title" className="login-card__title">Bienvenido</h2>
-        <p className="login-card__subtitle">Inicia sesión para gestionar tus pedidos y stock.</p>
+        <p className="login-card__subtitle">Accede al panel de administración.</p>
 
-        {/* Formulario — solo visual, sin lógica */}
-        <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+        <form className="login-form" onSubmit={handleSubmit} noValidate>
 
           <div className="login-field">
             <label className="login-field__label" htmlFor="login-email">Correo electrónico</label>
@@ -42,7 +61,10 @@ export default function Login({ onClose }) {
                 className="login-field__input"
                 type="email"
                 placeholder="correo@ejemplo.com"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); setError(''); }}
                 autoComplete="email"
+                disabled={busy}
               />
             </div>
           </div>
@@ -61,36 +83,23 @@ export default function Login({ onClose }) {
                 className="login-field__input"
                 type="password"
                 placeholder="••••••••"
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setError(''); }}
                 autoComplete="current-password"
+                disabled={busy}
               />
             </div>
           </div>
 
-          <div className="login-row">
-            <label className="login-remember">
-              <input type="checkbox" className="login-remember__check" />
-              <span className="login-remember__label">Recordarme</span>
-            </label>
-            <button type="button" className="login-forgot">¿Olvidaste tu contraseña?</button>
-          </div>
+          {error && <p className="login-error" role="alert">{error}</p>}
 
-          <button type="submit" className="login-submit">
+          <button type="submit" className="login-submit" disabled={busy}>
             <span className="login-submit__shimmer" />
-            <span className="login-submit__label">Iniciar sesión</span>
+            <span className="login-submit__label">
+              {busy ? 'Ingresando…' : 'Iniciar sesión'}
+            </span>
           </button>
-
-          <div className="login-divider">
-            <span className="login-divider__line" />
-            <span className="login-divider__text">o</span>
-            <span className="login-divider__line" />
-          </div>
-
-          <div className="login-card__footer">
-            <span className="login-card__footer-text">¿No tienes cuenta? </span>
-            <button type="button" className="login-card__footer-link">Regístrate</button>
-          </div>
         </form>
-
       </div>
     </div>
   );
