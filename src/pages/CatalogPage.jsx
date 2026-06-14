@@ -5,13 +5,6 @@ import ImageLightbox from '../components/ImageLightbox';
 import './CatalogPage.css';
 
 const DISPS = ['Todas', 'Disponible', 'Pocas unidades', 'Agotado'];
-const COLORES = [
-  { label: 'Azul',    hex: '#2563EB' },
-  { label: 'Negro',   hex: '#1E293B' },
-  { label: 'Gris',    hex: '#94A3B8' },
-  { label: 'Morado',  hex: '#7C3AED' },
-  { label: 'Celeste', hex: '#60A5FA' },
-];
 
 const priceVal = (str) => parseInt((str || '0').replace(/\D/g, ''), 10);
 
@@ -29,6 +22,18 @@ export default function CatalogPage() {
 
   // Tipos dinámicos desde categorías
   const TIPOS = useMemo(() => ['Todas', ...categories.map((c) => c.name)], [categories]);
+
+  // Colores dinámicos: todos los hexadecimales únicos presentes en los productos
+  const COLORES = useMemo(() => {
+    const set = new Set();
+    products.forEach((p) => {
+      (p.colors || '').split(',').forEach((h) => {
+        const hex = h.trim().toUpperCase();
+        if (/^#[0-9A-Fa-f]{6}$/.test(hex)) set.add(hex);
+      });
+    });
+    return [...set].map((hex) => ({ hex, label: hex }));
+  }, [products]);
 
   const sanitizeSearch = (val) => val.replace(/[<>"'`]/g, '').slice(0, 100);
 
