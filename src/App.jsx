@@ -38,23 +38,34 @@ function ProtectedRoute({ children }) {
 
 export default function App() {
   const [loginOpen, setLoginOpen] = useState(
-    () => sessionStorage.getItem('loginOpen') === '1'
+    () => localStorage.getItem('loginOpen') === '1'
   );
   const { user } = useAuth();
 
   const openLogin = () => {
-    sessionStorage.setItem('loginOpen', '1');
+    localStorage.setItem('loginOpen', '1');
     setLoginOpen(true);
   };
   const closeLogin = () => {
-    sessionStorage.removeItem('loginOpen');
+    localStorage.removeItem('loginOpen');
     setLoginOpen(false);
   };
+
+  // Sincronizar si otra pestaña de la misma app cambia el estado
+  useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key === 'loginOpen') {
+        setLoginOpen(e.newValue === '1');
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   // Cerrar si el usuario ya inició sesión
   useEffect(() => {
     if (user) {
-      sessionStorage.removeItem('loginOpen');
+      localStorage.removeItem('loginOpen');
       setLoginOpen(false);
     }
   }, [user]);
