@@ -304,7 +304,7 @@
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  height: clamp(170px, 22vw, 230px);
+  height: clamp(220px, 28vw, 300px);
   background: radial-gradient(120% 100% at 50% 22%, #eff6ff, #dce9f7 70%, #e7e3fb);
   display: flex;
   align-items: center;
@@ -345,7 +345,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 14px;
+  padding: 8px;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .cprod:hover .cprod__img {

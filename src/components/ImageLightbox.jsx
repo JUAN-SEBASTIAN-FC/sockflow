@@ -26,7 +26,7 @@ export default function ImageLightbox({ product, onClose }) {
         <div className="lightbox__img-wrap" style={{ background: `radial-gradient(120% 100% at 50% 20%, #eff6ff, #dce9f7 65%, #e7e3fb)` }}>
           <img
             className="lightbox__img"
-            src="assets/sock.png"
+            src={product.image_url || 'assets/sock.png'}
             alt={product.name}
             style={product.filter && product.filter !== 'none' ? { filter: product.filter } : undefined}
           />

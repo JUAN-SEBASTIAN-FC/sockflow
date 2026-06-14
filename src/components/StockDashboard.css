@@ -1,4 +1,4 @@
-/* Panel de gestión de stock: KPIs, distribución, niveles y gráfico. */
+/* Sección de disponibilidad */
 
 .stock {
   padding: 0 clamp(16px, 5vw, 40px) clamp(56px, 8vw, 100px);
@@ -53,51 +53,11 @@
   transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Fila de KPIs ─────────────────────────────────────── */
-.stock__kpis {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(10px, 1.5vw, 16px);
-}
-.kpi {
-  background: var(--color-bg);
-  border: 1px solid #eef2fb;
-  border-radius: 18px;
-  padding: clamp(14px, 1.8vw, 20px);
-}
-.kpi__label {
-  font-family: var(--font-body);
-  font-size: clamp(11px, 1.1vw, 13px);
-  font-weight: 500;
-  color: #64748b;
-}
-.kpi__value {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(22px, 2.8vw, 32px);
-  letter-spacing: -0.02em;
-  color: #1e293b;
-  margin-top: 6px;
-}
-.kpi__delta {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #059669;
-  background: rgba(16, 185, 129, 0.1);
-  padding: 3px 9px;
-  border-radius: 9999px;
-}
-
-/* ── Cuerpo: distribución + niveles ───────────────────── */
+/* ── Cuerpo: distribución + CTA ───────────────────────── */
 .stock__body {
   display: grid;
   grid-template-columns: 1fr 1.25fr;
   gap: clamp(14px, 2vw, 24px);
-  margin-top: clamp(14px, 2vw, 24px);
 }
 .stock__card {
   background: var(--color-bg);
@@ -140,117 +100,60 @@
   color: #64748b;
 }
 
-/* Niveles de stock */
-.levels__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: clamp(14px, 2vw, 22px);
-}
-.levels__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(8px, 1.2vw, 14px);
-}
-.levels__legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: #64748b;
-}
-.levels__legend-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.levels__list {
+/* Tarjeta CTA de consulta */
+.stock__card--cta {
   display: flex;
   flex-direction: column;
-  gap: 17px;
+  justify-content: center;
+  gap: 16px;
 }
-.levels__row-head {
+.stock__cta-text {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.3vw, 15px);
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+.stock__cta-btns {
   display: flex;
-  justify-content: space-between;
-  font-size: clamp(12px, 1.2vw, 13.5px);
-  margin-bottom: 7px;
-  gap: 8px;
+  flex-direction: column;
+  gap: 10px;
 }
-.levels__row-name {
-  font-weight: 600;
-  color: #334155;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.levels__track {
-  height: 9px;
-  border-radius: 9999px;
-  background: #eef2fb;
-  overflow: hidden;
-}
-.levels__fill {
-  height: 100%;
-  width: 0;
-  border-radius: 9999px;
-  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Mini gráfico de líneas */
-.chart {
-  margin-top: clamp(16px, 2vw, 24px);
-  padding-top: clamp(16px, 2vw, 22px);
-  border-top: 1px solid #eef2fb;
-}
-.chart__head {
-  display: flex;
+.stock__cta-btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.chart__title {
+  justify-content: center;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(12px, 1.2vw, 14px);
-  color: #1e293b;
+  font-weight: 600;
+  font-size: clamp(13px, 1.2vw, 15px);
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.chart__pill {
-  font-size: 12px;
-  font-weight: 700;
-  color: #059669;
-  background: rgba(16, 185, 129, 0.1);
-  padding: 3px 9px;
-  border-radius: 9999px;
+.stock__cta-btn--primary {
+  background: #1e3a8a;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(30, 58, 138, 0.3);
 }
-.chart__svg {
-  width: 100%;
-  height: clamp(64px, 9vw, 96px);
-  display: block;
+.stock__cta-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4);
 }
-.chart__line {
-  transition: stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+.stock__cta-btn--secondary {
+  background: rgba(37, 99, 235, 0.07);
+  color: #2563eb;
+  border: 1px solid rgba(37, 99, 235, 0.2);
 }
-.chart__labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11.5px;
-  color: #94a3b8;
-  margin-top: 4px;
+.stock__cta-btn--secondary:hover {
+  background: rgba(37, 99, 235, 0.12);
 }
 
 /* ── Tablet: ≤ 1024px ───────────────────────────────── */
 @media (max-width: 1024px) {
-  .stock__kpis {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .stock__body {
     grid-template-columns: 1fr;
   }
-
   .dist__grid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -258,26 +161,13 @@
 
 /* ── Móvil: ≤ 767px ─────────────────────────────────── */
 @media (max-width: 767px) {
-  .stock__kpis {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .dist__grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .levels__head {
-    flex-direction: column;
   }
 }
 
 /* ── Móvil pequeño: ≤ 479px ─────────────────────────── */
 @media (max-width: 479px) {
-  .stock__kpis {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
   .dist__item svg {
     width: 58px;
     height: 58px;

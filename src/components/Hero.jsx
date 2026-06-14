@@ -2,18 +2,9 @@ import './Hero.css';
 
 const chips = [
   { label: 'Domicilio gratis en Tuluá', icon: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></> },
-  { label: 'Variedad de diseños', icon: <><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" /></> },
-  { label: 'Calidad premium', icon: <><path d="M3 17l5-5 4 4 7-8" /><path d="M16 4h5v5" /></> },
-  { label: 'Para toda la familia', icon: <><path d="M3 9h18M3 15h18M9 3v18" /><rect x="3" y="3" width="18" height="18" rx="2" /></> },
-];
-
-const salesBars = [
-  { fill: '38%', bg: 'linear-gradient(#60A5FA,#2563EB)', delay: '0.1s' },
-  { fill: '58%', bg: 'linear-gradient(#60A5FA,#2563EB)', delay: '0.2s' },
-  { fill: '46%', bg: 'linear-gradient(#7C5BE6,#2563EB)', delay: '0.3s' },
-  { fill: '78%', bg: 'linear-gradient(#7C5BE6,#2563EB)', delay: '0.4s' },
-  { fill: '64%', bg: 'linear-gradient(#A5A3F5,#60A5FA)', delay: '0.5s' },
-  { fill: '92%', bg: 'linear-gradient(#A5A3F5,#60A5FA)', delay: '0.6s' },
+  { label: 'Variedad de diseños',        icon: <><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" /></> },
+  { label: 'Calidad premium',            icon: <><path d="M3 17l5-5 4 4 7-8" /><path d="M16 4h5v5" /></> },
+  { label: 'Para toda la familia',       icon: <><path d="M3 9h18M3 15h18M9 3v18" /><rect x="3" y="3" width="18" height="18" rx="2" /></> },
 ];
 
 export default function Hero() {
@@ -71,38 +62,67 @@ export default function Hero() {
           <div className="hero__orb hero__orb--b" data-depth="-30"><div /></div>
           <div className="hero__orb hero__orb--c" data-depth="24"><div /></div>
 
-          {/* Tarjeta: Stock total */}
+          {/* Chips decorativos flotantes */}
           <div className="hero__stat hero__stat--total" data-depth="-20" data-reveal data-delay="180">
             <div className="hero__stat-card">
-              <div className="hero__stat-label">Stock total</div>
-              <div className="hero__stat-value-row"><span className="hero__stat-value" data-count="12458" data-sep="1">0</span></div>
-              <div className="hero__stat-trend"><span className="hero__pill-up">↑ 12.8%</span><span className="hero__stat-muted">vs ayer</span></div>
-              <svg className="hero__spark" width="138" height="34" viewBox="0 0 138 34"><path d="M2 26 C18 20 26 28 40 18 C54 9 64 22 78 14 C92 7 104 16 118 8 L136 4" fill="none" stroke="#2563EB" strokeWidth="2.4" strokeLinecap="round" /><path d="M2 26 C18 20 26 28 40 18 C54 9 64 22 78 14 C92 7 104 16 118 8 L136 4 L136 34 L2 34 Z" fill="url(#sparkfill)" opacity=".18" /><defs><linearGradient id="sparkfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#2563EB" /><stop offset="1" stopColor="#2563EB" stopOpacity="0" /></linearGradient></defs></svg>
+              <div className="hero__stat-label">Envíos en Tuluá</div>
+              <div className="hero__stat-value-row">
+                <span className="hero__stat-value">Gratis</span>
+              </div>
+              <div className="hero__stat-trend">
+                <span className="hero__pill-up">Domicilio incluido</span>
+              </div>
             </div>
           </div>
 
-          {/* Tarjeta: Categorías (donut) */}
           <div className="hero__stat hero__stat--cats" data-depth="22" data-reveal data-delay="320">
             <div className="hero__stat-card">
               <div className="hero__cats-title">Categorías</div>
               <div className="hero__cats-body">
-                <svg width="74" height="74" viewBox="0 0 74 74"><circle cx="37" cy="37" r="29" fill="none" stroke="#EEF2FB" strokeWidth="11" /><circle className="hero__donut-ring" data-ring data-circ="182.2" data-pct="60" cx="37" cy="37" r="29" fill="none" stroke="url(#donutg)" strokeWidth="11" strokeLinecap="round" strokeDasharray="182.2" strokeDashoffset="182.2" transform="rotate(-90 37 37)" /><defs><linearGradient id="donutg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#2563EB" /><stop offset="1" stopColor="#7C5BE6" /></linearGradient></defs></svg>
+                <svg width="74" height="74" viewBox="0 0 74 74">
+                  <circle cx="37" cy="37" r="29" fill="none" stroke="#EEF2FB" strokeWidth="11" />
+                  <circle
+                    className="hero__donut-ring"
+                    data-ring data-circ="182.2" data-pct="75"
+                    cx="37" cy="37" r="29"
+                    fill="none" stroke="url(#donutg)" strokeWidth="11"
+                    strokeLinecap="round"
+                    strokeDasharray="182.2" strokeDashoffset="182.2"
+                    transform="rotate(-90 37 37)"
+                  />
+                  <defs>
+                    <linearGradient id="donutg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stopColor="#2563EB" />
+                      <stop offset="1" stopColor="#7C5BE6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
                 <div>
-                  <div className="hero__legend"><span className="hero__legend-dot" style={{ background: '#2563EB' }} />Deportivas <span className="hero__legend-pct" data-count="60" data-suffix="%">0%</span></div>
-                  <div className="hero__legend"><span className="hero__legend-dot" style={{ background: '#A5A3F5' }} />Casual 22%</div>
-                  <div className="hero__legend"><span className="hero__legend-dot" style={{ background: '#EEF2FB' }} />Otras 18%</div>
+                  <div className="hero__legend"><span className="hero__legend-dot" style={{ background: '#2563EB' }} />Deportiva</div>
+                  <div className="hero__legend"><span className="hero__legend-dot" style={{ background: '#A5A3F5' }} />Casual</div>
+                  <div className="hero__legend"><span className="hero__legend-dot" style={{ background: '#EEF2FB' }} />Más…</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Tarjeta: Ventas (mini barras) */}
           <div className="hero__stat hero__stat--sales" data-depth="18" data-reveal data-delay="440">
             <div className="hero__stat-card">
-              <div className="hero__sales-head"><span className="hero__stat-label">Ventas</span><span className="hero__pill-up">+23.4%</span></div>
+              <div className="hero__sales-head">
+                <span className="hero__stat-label">Pedidos</span>
+                <span className="hero__pill-up">WhatsApp</span>
+              </div>
               <div className="hero__sales-bars">
-                {salesBars.map((b, i) => (
-                  <div key={i} className="hero__sales-bar" data-bar data-fill={b.fill} style={{ background: b.bg, transitionDelay: b.delay }} />
+                {[
+                  { fill: '45%', bg: 'linear-gradient(#60A5FA,#2563EB)', delay: '0.1s' },
+                  { fill: '62%', bg: 'linear-gradient(#60A5FA,#2563EB)', delay: '0.2s' },
+                  { fill: '50%', bg: 'linear-gradient(#7C5BE6,#2563EB)', delay: '0.3s' },
+                  { fill: '80%', bg: 'linear-gradient(#7C5BE6,#2563EB)', delay: '0.4s' },
+                  { fill: '70%', bg: 'linear-gradient(#A5A3F5,#60A5FA)', delay: '0.5s' },
+                  { fill: '90%', bg: 'linear-gradient(#A5A3F5,#60A5FA)', delay: '0.6s' },
+                ].map((b, i) => (
+                  <div key={i} className="hero__sales-bar" data-bar data-fill={b.fill}
+                    style={{ background: b.bg, transitionDelay: b.delay }} />
                 ))}
               </div>
             </div>
