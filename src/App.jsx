@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import css from './lib/css';
+import './App.css';
 import useLandingEffects from './hooks/useLandingEffects';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
@@ -14,9 +14,8 @@ export default function App() {
   useLandingEffects(rootRef);
 
   return (
-    <div ref={rootRef} id="sf-root" style={css('position:relative;overflow:hidden;background:#F4F7FB')}>
-      {/* halo del cursor */}
-      <div data-halo style={css('position:fixed;top:0;left:0;width:380px;height:380px;border-radius:50%;pointer-events:none;z-index:60;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(96,165,250,.22),rgba(125,211,252,.06) 45%,transparent 70%);mix-blend-mode:multiply;opacity:0;transition:opacity .4s ease;will-change:transform')} />
+    <div ref={rootRef} id="sf-root" className="sf-root">
+      <div className="sf-halo" data-halo />
 
       <Nav />
       <Hero />

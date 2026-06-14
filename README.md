@@ -31,14 +31,16 @@ al cliente las variables con prefijo `VITE_`.
 ```
 public/assets/        Imágenes (media, logo)
 src/
-  components/         Secciones de la landing (Nav, Hero, Catalog, ...)
+  components/         Cada sección con su .jsx + .css (Nav, Hero, Catalog, ...)
   data/products.js    Catálogo de productos
   hooks/              useLandingEffects — interactividad (parallax, contadores, filtros...)
-  lib/css.js          Helper para reutilizar estilos en línea del diseño original
   styles/             Sistema de diseño (tokens) + estilos globales/animaciones
-  App.jsx             Composición de la página
+  App.jsx / App.css   Composición de la página
   main.jsx            Punto de entrada de React
 ```
 
-El sistema de diseño (tokens de color, tipografía, espaciado, sombras y
-bordes) vive en `src/styles/` y se importa desde `src/styles/index.css`.
+Cada componente tiene su propio archivo `.css` con clases (sin estilos en
+línea de maquetación). El sistema de diseño (tokens de color, tipografía,
+espaciado, sombras y bordes) vive en `src/styles/` y se importa desde
+`src/styles/index.css`. Las animaciones globales (`@keyframes`) están en
+`src/styles/globals.css`.

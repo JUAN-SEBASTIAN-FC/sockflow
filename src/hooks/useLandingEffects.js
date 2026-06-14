@@ -199,27 +199,15 @@ export default function useLandingEffects(rootRef) {
     });
 
     /* ---------- catalog filter ---------- */
+    // El estado activo/hover de las pestañas se resuelve por CSS
+    // (.catalog__tab--active). Aquí solo alternamos la clase y mostramos
+    // u ocultamos las tarjetas según el filtro elegido.
     const tabs = Array.from(root.querySelectorAll('[data-filter]'));
     const cards = Array.from(root.querySelectorAll('[data-product]'));
-    const setTab = (tab, active) => {
-      if (active) {
-        tab.style.background = '#1E3A8A';
-        tab.style.color = '#fff';
-        tab.style.borderColor = 'transparent';
-        tab.style.boxShadow = '0 6px 18px rgba(30,58,138,.3)';
-      } else {
-        tab.style.background = '#fff';
-        tab.style.color = '#475569';
-        tab.style.borderColor = '#DCE9F7';
-        tab.style.boxShadow = 'none';
-      }
-    };
     tabs.forEach((tab) => {
-      const onOver = () => { if (tab.style.background.indexOf('30') === -1 && tab.style.color !== 'rgb(255, 255, 255)') { tab.style.borderColor = '#60A5FA'; tab.style.color = '#2563EB'; } };
-      const onOut = () => { if (tab.style.color !== 'rgb(255, 255, 255)') { tab.style.borderColor = '#DCE9F7'; tab.style.color = '#475569'; } };
       const onClick = () => {
         const f = tab.dataset.filter;
-        tabs.forEach((t) => setTab(t, t === tab));
+        tabs.forEach((t) => t.classList.toggle('catalog__tab--active', t === tab));
         cards.forEach((c) => {
           const show = f === 'all' || c.dataset.slug === f;
           if (show) {
@@ -232,14 +220,8 @@ export default function useLandingEffects(rootRef) {
           }
         });
       };
-      tab.addEventListener('mouseover', onOver);
-      tab.addEventListener('mouseout', onOut);
       tab.addEventListener('click', onClick);
-      cleanups.push(() => {
-        tab.removeEventListener('mouseover', onOver);
-        tab.removeEventListener('mouseout', onOut);
-        tab.removeEventListener('click', onClick);
-      });
+      cleanups.push(() => tab.removeEventListener('click', onClick));
     });
 
     return () => cleanups.forEach((fn) => fn());

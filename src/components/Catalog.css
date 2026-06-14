@@ -1,0 +1,107 @@
+/* Catálogo de productos con filtros y galería. */
+
+.catalog {
+  padding: 0 40px 100px;
+  position: relative;
+}
+
+.catalog__glow {
+  position: absolute;
+  top: 8%;
+  right: 2%;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 91, 230, 0.12), transparent 68%);
+  filter: blur(10px);
+  z-index: 0;
+  animation: sfDrift 28s ease-in-out infinite;
+}
+
+.catalog__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.catalog__head {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.catalog__eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+.catalog__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 46px;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #1e293b;
+  margin: 14px 0 0;
+}
+.catalog__title-accent {
+  background: linear-gradient(100deg, #2563eb, #7c5be6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.catalog__lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: #64748b;
+  margin: 18px auto 0;
+  max-width: 480px;
+}
+
+/* ── Pestañas de filtro ───────────────────────────────── */
+.catalog__filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 36px 0 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.catalog__tab {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 11px 22px;
+  border-radius: 9999px;
+  border: 1px solid #dce9f7;
+  background: #fff;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.catalog__tab:not(.catalog__tab--active):hover {
+  border-color: #60a5fa;
+  color: #2563eb;
+}
+.catalog__tab--active {
+  border-color: transparent;
+  background: #1e3a8a;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(30, 58, 138, 0.3);
+}
+
+/* ── Rejilla de productos ─────────────────────────────── */
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}

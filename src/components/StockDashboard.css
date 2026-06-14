@@ -1,0 +1,233 @@
+/* Panel de gestión de stock: KPIs, distribución, niveles y gráfico. */
+
+.stock {
+  padding: 0 40px 100px;
+}
+.stock__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.stock__head {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 44px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.stock__eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+.stock__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 46px;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #1e293b;
+  margin: 14px 0 0;
+}
+.stock__lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: #64748b;
+  margin: 18px auto 0;
+  max-width: 460px;
+}
+
+.stock__panel {
+  background: #fff;
+  border: 1px solid #dce9f7;
+  border-radius: 30px;
+  padding: 34px;
+  box-shadow: var(--shadow-xl);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Fila de KPIs ─────────────────────────────────────── */
+.stock__kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.kpi {
+  background: var(--color-bg);
+  border: 1px solid #eef2fb;
+  border-radius: 18px;
+  padding: 20px;
+}
+.kpi__label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+}
+.kpi__value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: #1e293b;
+  margin-top: 6px;
+}
+.kpi__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 3px 9px;
+  border-radius: 9999px;
+}
+
+/* ── Cuerpo: distribución + niveles ───────────────────── */
+.stock__body {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+.stock__card {
+  background: var(--color-bg);
+  border: 1px solid #eef2fb;
+  border-radius: 22px;
+  padding: 26px;
+}
+.stock__card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  color: #1e293b;
+  margin: 0 0 22px;
+}
+
+/* Distribución (anillos) */
+.dist__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+.dist__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.dist__ring {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dist__pct {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  color: #1e293b;
+}
+.dist__name {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Niveles de stock */
+.levels__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.levels__legend {
+  display: flex;
+  gap: 14px;
+}
+.levels__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #64748b;
+}
+.levels__legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.levels__list {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+.levels__row-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  margin-bottom: 7px;
+}
+.levels__row-name {
+  font-weight: 600;
+  color: #334155;
+}
+.levels__track {
+  height: 9px;
+  border-radius: 9999px;
+  background: #eef2fb;
+  overflow: hidden;
+}
+.levels__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 9999px;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mini gráfico de líneas */
+.chart {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #eef2fb;
+}
+.chart__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.chart__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: #1e293b;
+}
+.chart__pill {
+  font-size: 12px;
+  font-weight: 700;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 3px 9px;
+  border-radius: 9999px;
+}
+.chart__svg {
+  width: 100%;
+  height: 96px;
+  display: block;
+}
+.chart__line {
+  transition: stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.chart__labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
