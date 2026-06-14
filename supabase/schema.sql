@@ -1,20 +1,36 @@
--- ──────────────────────────────────────────────────────
--- Medias Tuluá · Schema
+-- ══════════════════════════════════════════════════════
+-- Medias Tuluá · Schema completo
 -- Ejecutar en: Supabase → SQL Editor → New query
--- ──────────────────────────────────────────────────────
+--
+-- Este archivo es el punto de entrada que une todo.
+-- Los archivos individuales están en:
+--   migrations/fix_constraints.sql  → corrige tabla existente
+--   tables/categories.sql           → tabla de categorías
+--   tables/products.sql             → tabla de productos
+--   policies/categories_policies.sql → RLS de categorías
+--   policies/products_policies.sql  → RLS de productos
+-- ══════════════════════════════════════════════════════
 
--- ── 1. Tabla de categorías ────────────────────────────
+
+-- ── PASO 1: Corregir tabla existente (si ya fue creada antes) ──
+-- Eliminar constraints obsoletos que bloquean categorías personalizadas
+ALTER TABLE public.products DROP CONSTRAINT IF EXISTS products_cat_check;
+ALTER TABLE public.products DROP CONSTRAINT IF EXISTS products_status_check;
+ALTER TABLE public.products ALTER COLUMN image_url TYPE text;
+
+
+-- ── PASO 2: Crear tablas ───────────────────────────────────────
+
 CREATE TABLE IF NOT EXISTS public.categories (
-  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  name        text NOT NULL UNIQUE,
-  bg_color    text NOT NULL DEFAULT 'rgba(37,99,235,.10)',
-  text_color  text NOT NULL DEFAULT '#2563EB',
-  created_at  timestamptz DEFAULT now()
+  id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  name        text        NOT NULL UNIQUE,
+  bg_color    text        NOT NULL DEFAULT 'rgba(37,99,235,.10)',
+  text_color  text        NOT NULL DEFAULT '#2563EB',
+  created_at  timestamptz NOT NULL DEFAULT now()
 );
 
--- ── 2. Tabla de productos ─────────────────────────────
 CREATE TABLE IF NOT EXISTS public.products (
-  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
   name        text        NOT NULL,
   cat         text        NOT NULL DEFAULT '',
   slug        text        NOT NULL DEFAULT '',
@@ -28,21 +44,23 @@ CREATE TABLE IF NOT EXISTS public.products (
   sbg         text,
   catbg       text,
   catcolor    text,
-  image_url   text,          -- base64 data-URL o URL pública
-  created_at  timestamptz DEFAULT now()
+  image_url   text,
+  created_at  timestamptz NOT NULL DEFAULT now()
 );
 
--- ── 3. Habilitar RLS ──────────────────────────────────
+
+-- ── PASO 3: Habilitar RLS ─────────────────────────────────────
+
 ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.products   ENABLE ROW LEVEL SECURITY;
 
--- ── 4. Políticas: categories ──────────────────────────
--- Cualquiera puede leer
+
+-- ── PASO 4: Políticas de categories ──────────────────────────
+
 CREATE POLICY "categories_select_public"
   ON public.categories FOR SELECT
   USING (true);
 
--- Solo usuarios autenticados pueden crear/editar/borrar
 CREATE POLICY "categories_insert_auth"
   ON public.categories FOR INSERT
   TO authenticated
@@ -53,7 +71,9 @@ CREATE POLICY "categories_delete_auth"
   TO authenticated
   USING (true);
 
--- ── 5. Políticas: products ────────────────────────────
+
+-- ── PASO 5: Políticas de products ────────────────────────────
+
 CREATE POLICY "products_select_public"
   ON public.products FOR SELECT
   USING (true);

@@ -37,16 +37,32 @@ function ProtectedRoute({ children }) {
 }
 
 export default function App() {
-  const [loginOpen, setLoginOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(
+    () => sessionStorage.getItem('loginOpen') === '1'
+  );
   const { user } = useAuth();
 
-  // Si el usuario inicia sesión mientras el modal está abierto, cerrarlo
-  useEffect(() => { if (user) setLoginOpen(false); }, [user]);
+  const openLogin = () => {
+    sessionStorage.setItem('loginOpen', '1');
+    setLoginOpen(true);
+  };
+  const closeLogin = () => {
+    sessionStorage.removeItem('loginOpen');
+    setLoginOpen(false);
+  };
+
+  // Cerrar si el usuario ya inició sesión
+  useEffect(() => {
+    if (user) {
+      sessionStorage.removeItem('loginOpen');
+      setLoginOpen(false);
+    }
+  }, [user]);
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<Landing onLoginOpen={() => setLoginOpen(true)} />} />
+        <Route path="/" element={<Landing onLoginOpen={openLogin} />} />
         <Route path="/catalogo" element={<CatalogPage />} />
         <Route
           path="/admin"
@@ -59,7 +75,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
-      {loginOpen && <Login onClose={() => setLoginOpen(false)} />}
+      {loginOpen && <Login onClose={closeLogin} />}
     </>
   );
 }
