@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none" role="img" aria-label="SockFlow (white)">
-  
-  <rect width="40" height="40" rx="11" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"></rect>
-  <path d="M13 18a7 7 0 1 1 7 6H13" stroke="white" stroke-width="2.6" stroke-linecap="round" fill="none"></path>
-  <path d="M27 22a7 7 0 1 1-7-6h7" stroke="white" stroke-width="2.6" stroke-linecap="round" fill="none"></path>
-  
-  <text x="50" y="26.5" font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="18" fill="white" letter-spacing="-0.3">SockFlow</text>
-</svg>

@@ -1,0 +1,74 @@
+/* SockFlow — Global styles & animation keyframes
+   Extracted from the original landing markup. Design-system tokens
+   are imported separately via ./index.css (the @import chain). */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f4f7fb;
+  font-family: var(--font-body);
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.18);
+}
+
+@keyframes sfGrad {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes sfBobA {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-13px); }
+}
+@keyframes sfBobB {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(11px); }
+}
+@keyframes sfBobC {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-9px) translateX(6px); }
+}
+@keyframes sfSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes sfSpinR {
+  to { transform: rotate(-360deg); }
+}
+@keyframes sfPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.12); }
+}
+@keyframes sfDrift {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(22px, -16px); }
+  66% { transform: translate(-16px, 13px); }
+}
+@keyframes sfShimmer {
+  0% { background-position: -160% 0; }
+  100% { background-position: 260% 0; }
+}
+@keyframes sfFloatSock {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(-1.2deg); }
+}
+@keyframes sfHalo {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.85; }
+}
