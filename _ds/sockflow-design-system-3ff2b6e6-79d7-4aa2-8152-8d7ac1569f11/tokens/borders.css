@@ -1,0 +1,26 @@
+/* SockFlow — Border & Radius Tokens
+   Generous radius system — from pill (full) down to subtle (xs).
+   Cards use xl (18px); inputs use md (10px); pills use full (9999px). */
+
+:root {
+  /* ── Border Radius ─────────────────────────────────── */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   18px;
+  --radius-2xl:  24px;
+  --radius-3xl:  32px;
+  --radius-full: 9999px;
+
+  /* ── Border Widths ─────────────────────────────────── */
+  --border-thin:   1px;
+  --border-base:   1.5px;
+  --border-thick:  2px;
+
+  /* ── Semantic Borders ──────────────────────────────── */
+  --border-default: 1px solid var(--color-border);
+  --border-strong:  1.5px solid var(--color-border-strong);
+  --border-primary: 1.5px solid var(--color-primary);
+  --border-subtle:  1px solid var(--color-border-subtle);
+}

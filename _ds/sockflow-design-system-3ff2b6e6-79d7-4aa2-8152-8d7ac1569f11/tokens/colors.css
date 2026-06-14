@@ -1,0 +1,73 @@
+/* SockFlow — Color Tokens
+   Palette: azul, claro y premium
+   All shadows use blue-tinted tones — never pure black */
+
+:root {
+  /* ── Raw Blue Scale ─────────────────────────────────── */
+  --color-blue-50:  #EFF6FF;
+  --color-blue-100: #DBEAFE;
+  --color-blue-200: #DCE9F7;   /* azul claro suave */
+  --color-blue-300: #93C5FD;
+  --color-blue-400: #60A5FA;   /* azul cielo — acentos y glows */
+  --color-blue-500: #3B82F6;
+  --color-blue-600: #2563EB;   /* azul principal — vibrante elegante */
+  --color-blue-700: #1D4ED8;
+  --color-blue-800: #1E3A8A;   /* azul profundo — contraste / CTA */
+  --color-blue-900: #1E293B;   /* texto y contraste — gris azulado */
+
+  /* ── Cyan ──────────────────────────────────────────── */
+  --color-cyan-300: #7DD3FC;   /* detalle luminoso */
+  --color-cyan-200: #BAE6FD;
+  --color-cyan-100: #E0F2FE;
+
+  /* ── Neutral (blue-tinted greys) ───────────────────── */
+  --color-neutral-50:  #F8FAFC;
+  --color-neutral-100: #F1F5F9;
+  --color-neutral-200: #E2E8F0;
+  --color-neutral-300: #CBD5E1;
+  --color-neutral-400: #94A3B8;
+  --color-neutral-500: #64748B;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1E293B;
+
+  /* ── Surface ───────────────────────────────────────── */
+  --color-bg:             #F4F7FB;   /* fondo base — blanco azulado */
+  --color-surface:        #FFFFFF;
+  --color-surface-subtle: #DCE9F7;   /* azul claro suave */
+  --color-surface-muted:  #EFF6FF;
+  --color-surface-dark:   #1E3A8A;   /* deep blue dark sections */
+  --color-surface-ink:    #1E293B;   /* near-black for darkest sections */
+
+  /* ── Brand Semantic ────────────────────────────────── */
+  --color-primary:        #2563EB;
+  --color-primary-hover:  #1D4ED8;
+  --color-primary-active: #1A44C8;
+  --color-primary-deep:   #1E3A8A;
+  --color-accent:         #60A5FA;
+  --color-accent-glow:    #7DD3FC;
+
+  /* ── Text ──────────────────────────────────────────── */
+  --color-text-primary:    #1E293B;
+  --color-text-secondary:  #64748B;
+  --color-text-tertiary:   #94A3B8;
+  --color-text-disabled:   #CBD5E1;
+  --color-text-on-primary: #FFFFFF;
+  --color-text-on-dark:    #FFFFFF;
+  --color-text-link:       #2563EB;
+
+  /* ── Border ────────────────────────────────────────── */
+  --color-border:        #DCE9F7;
+  --color-border-strong: rgba(37, 99, 235, 0.22);
+  --color-border-subtle: rgba(37, 99, 235, 0.10);
+
+  /* ── Status ────────────────────────────────────────── */
+  --color-success:    #10B981;
+  --color-success-bg: rgba(16, 185, 129, 0.08);
+  --color-warning:    #F59E0B;
+  --color-warning-bg: rgba(245, 158, 11, 0.08);
+  --color-error:      #EF4444;
+  --color-error-bg:   rgba(239, 68, 68, 0.08);
+  --color-info:       #60A5FA;
+  --color-info-bg:    rgba(96, 165, 250, 0.10);
+}

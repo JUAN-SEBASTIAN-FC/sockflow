@@ -1,0 +1,10 @@
+/* SockFlow Design System — Global Stylesheet
+   Import this one file to get everything.
+   Do not add inline rules here — @imports only. */
+
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/shadows.css';
+@import './tokens/borders.css';
+@import './tokens/base.css';

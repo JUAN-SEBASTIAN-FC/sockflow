@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" role="img" aria-label="SockFlow icon">
+  <rect width="40" height="40" rx="11" fill="url(#ig)"></rect>
+  <path d="M13 18a7 7 0 1 1 7 6H13" stroke="white" stroke-width="2.6" stroke-linecap="round" fill="none"></path>
+  <path d="M27 22a7 7 0 1 1-7-6h7" stroke="white" stroke-width="2.6" stroke-linecap="round" fill="none"></path>
+  <defs>
+    <linearGradient id="ig" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA"></stop>
+      <stop offset="1" stop-color="#1E3A8A"></stop>
+    </linearGradient>
+  </defs>
+</svg>

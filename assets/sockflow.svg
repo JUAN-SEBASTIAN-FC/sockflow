@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none" role="img" aria-label="SockFlow">
+  
+  <rect width="40" height="40" rx="11" fill="url(#icon-grad)"></rect>
+  
+  <path d="M13 18a7 7 0 1 1 7 6H13" stroke="white" stroke-width="2.6" stroke-linecap="round" fill="none"></path>
+  <path d="M27 22a7 7 0 1 1-7-6h7" stroke="white" stroke-width="2.6" stroke-linecap="round" fill="none"></path>
+  
+  <text x="50" y="26.5" font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="18" fill="#1E293B" letter-spacing="-0.3">SockFlow</text>
+  <defs>
+    <linearGradient id="icon-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA"></stop>
+      <stop offset="1" stop-color="#1E3A8A"></stop>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,34 @@
+/* SockFlow — Shadow Tokens
+   All shadows use blue-tinted tones — never pure black.
+   Glow effects used for hero CTAs and accent elements. */
+
+:root {
+  /* ── Elevation Shadows ─────────────────────────────── */
+  --shadow-xs: 0 1px 2px 0 rgba(37, 99, 235, 0.04);
+  --shadow-sm: 0 1px 4px 0 rgba(37, 99, 235, 0.06),
+               0 1px 2px -1px rgba(37, 99, 235, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(37, 99, 235, 0.10),
+               0 2px 6px -2px rgba(37, 99, 235, 0.06);
+  --shadow-lg: 0 8px 28px -6px rgba(37, 99, 235, 0.14),
+               0 4px 12px -4px rgba(37, 99, 235, 0.08);
+  --shadow-xl: 0 16px 48px -8px rgba(37, 99, 235, 0.18),
+               0 8px 24px -8px rgba(37, 99, 235, 0.10);
+  --shadow-2xl: 0 24px 64px -10px rgba(37, 99, 235, 0.22),
+                0 12px 32px -10px rgba(37, 99, 235, 0.12);
+
+  /* ── Glow Effects ──────────────────────────────────── */
+  --shadow-glow-sm:      0 0 12px rgba(96, 165, 250, 0.30);
+  --shadow-glow-md:      0 0 24px rgba(96, 165, 250, 0.35);
+  --shadow-glow-lg:      0 0 48px rgba(96, 165, 250, 0.40);
+  --shadow-glow-primary: 0 0 32px rgba(37, 99, 235, 0.30);
+  --shadow-glow-cyan:    0 0 24px rgba(125, 211, 252, 0.45);
+
+  /* ── Button / Interactive Shadows ──────────────────── */
+  --shadow-btn-primary: 0 4px 16px rgba(37, 99, 235, 0.32);
+  --shadow-btn-dark:    0 4px 20px rgba(30, 58, 138, 0.35);
+  --shadow-btn-hover:   0 6px 24px rgba(37, 99, 235, 0.40);
+
+  /* ── Inner Shadows ─────────────────────────────────── */
+  --shadow-inner:    inset 0 2px 4px 0 rgba(37, 99, 235, 0.06);
+  --shadow-inner-lg: inset 0 4px 8px 0 rgba(37, 99, 235, 0.10);
+}
