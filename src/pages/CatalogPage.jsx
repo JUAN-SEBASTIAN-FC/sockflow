@@ -30,6 +30,8 @@ export default function CatalogPage() {
   // Tipos dinámicos desde categorías
   const TIPOS = useMemo(() => ['Todas', ...categories.map((c) => c.name)], [categories]);
 
+  const sanitizeSearch = (val) => val.replace(/[<>"'`]/g, '').slice(0, 100);
+
   const allPrices = useMemo(() => products.map((p) => priceVal(p.price)).filter(Boolean), [products]);
   const maxPrice  = allPrices.length ? Math.max(...allPrices) : 100000;
 
@@ -89,7 +91,8 @@ export default function CatalogPage() {
                 type="text"
                 placeholder="Nombre o categoría…"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => setSearch(sanitizeSearch(e.target.value))}
+                maxLength={100}
               />
               {search && (
                 <button className="cfilter__search-clear" onClick={() => setSearch('')}>×</button>

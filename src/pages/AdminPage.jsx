@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useProducts } from '../context/ProductsContext';
+import { supabase } from '../lib/supabase';
 import ImageLightbox from '../components/ImageLightbox';
 import './AdminPage.css';
 
@@ -56,7 +57,33 @@ export default function AdminPage() {
   const [catDeleteConfirm, setCatDeleteConfirm] = useState(null);
   const [catDeleting,  setCatDeleting]  = useState(false);
 
+  // ── Cambiar contraseña state ──
+  const [pwModal,      setPwModal]      = useState(false);
+  const [pwCurrent,    setPwCurrent]    = useState('');
+  const [pwNew,        setPwNew]        = useState('');
+  const [pwConfirm,    setPwConfirm]    = useState('');
+  const [pwSaving,     setPwSaving]     = useState(false);
+  const [pwError,      setPwError]      = useState('');
+  const [pwSuccess,    setPwSuccess]    = useState('');
+
+  // ── Color picker ref ──
+  const colorPickerRef = useRef(null);
+
   const TIPOS = useMemo(() => categories.map((c) => c.name), [categories]);
+
+  // Colores únicos acumulados de todos los productos existentes
+  const allColors = useMemo(() => {
+    const set = new Set();
+    products.forEach((p) => {
+      (p.colors || '').split(',').forEach((h) => {
+        const hex = h.trim();
+        if (/^#[0-9A-Fa-f]{6}$/.test(hex)) set.add(hex.toUpperCase());
+      });
+    });
+    return [...set];
+  }, [products]);
+
+  const sanitizeSearch = (val) => val.replace(/[<>"'`]/g, '').slice(0, 100);
 
   const filtered = products.filter((p) => {
     if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
@@ -139,6 +166,44 @@ export default function AdminPage() {
   const handleLogout = async () => { await logout(); navigate('/'); };
   const field = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
+  // ── Helpers de colores del producto ──
+  const formColors = useMemo(() => {
+    return (form.colors || '').split(',').map((h) => h.trim()).filter(Boolean);
+  }, [form.colors]);
+
+  const toggleColor = (hex) => {
+    const upper = hex.toUpperCase();
+    const current = formColors.map((h) => h.toUpperCase());
+    if (current.includes(upper)) {
+      field('colors', formColors.filter((h) => h.toUpperCase() !== upper).join(','));
+    } else if (formColors.length < 5) {
+      field('colors', [...formColors, upper].join(','));
+    }
+  };
+
+  const addPickerColor = (hex) => {
+    const upper = hex.toUpperCase();
+    if (formColors.map((h) => h.toUpperCase()).includes(upper)) return;
+    if (formColors.length >= 5) return;
+    field('colors', [...formColors, upper].join(','));
+  };
+
+  // ── Cambiar contraseña ──
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setPwError(''); setPwSuccess('');
+    if (!pwNew || !pwConfirm) { setPwError('Completa todos los campos.'); return; }
+    if (pwNew.length < 6) { setPwError('La contraseña debe tener al menos 6 caracteres.'); return; }
+    if (pwNew !== pwConfirm) { setPwError('Las contraseñas nuevas no coinciden.'); return; }
+    setPwSaving(true);
+    const { error } = await supabase.auth.updateUser({ password: pwNew });
+    setPwSaving(false);
+    if (error) { setPwError('No se pudo cambiar la contraseña. Vuelve a iniciar sesión e intenta de nuevo.'); return; }
+    setPwSuccess('Contraseña actualizada correctamente.');
+    setPwNew(''); setPwConfirm(''); setPwCurrent('');
+    setTimeout(() => { setPwModal(false); setPwSuccess(''); }, 2000);
+  };
+
   return (
     <div className="admin">
       {/* ── Topbar ── */}
@@ -153,6 +218,12 @@ export default function AdminPage() {
         </div>
         <div className="admin__topbar-right">
           <span className="admin__user">{user?.email}</span>
+          <button className="admin__chpw" onClick={() => { setPwModal(true); setPwError(''); setPwSuccess(''); setPwNew(''); setPwConfirm(''); setPwCurrent(''); }} title="Cambiar contraseña">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            Contraseña
+          </button>
           <button className="admin__logout" onClick={handleLogout}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" />
@@ -201,7 +272,7 @@ export default function AdminPage() {
                     <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
                   </svg>
                   <input className="admin__search" type="text" placeholder="Buscar media…"
-                    value={search} onChange={(e) => setSearch(e.target.value)} />
+                    value={search} onChange={(e) => setSearch(sanitizeSearch(e.target.value))} maxLength={100} />
                 </div>
                 <div className="admin__cat-tabs">
                   {['Todas', ...TIPOS].map((c) => (
@@ -380,6 +451,74 @@ export default function AdminPage() {
                   onChange={(e) => field('units', e.target.value)} disabled={saving} />
               </div>
 
+              {/* ── Colores del producto ── */}
+              <div className="afield">
+                <label className="afield__label">
+                  Colores
+                  <span className="afield__label-hint"> (máx. 5 — selecciona o usa el selector)</span>
+                </label>
+                {allColors.length > 0 && (
+                  <div className="acolor__pool">
+                    {allColors.map((hex) => {
+                      const active = formColors.map((h) => h.toUpperCase()).includes(hex);
+                      return (
+                        <button
+                          key={hex}
+                          type="button"
+                          className={`acolor__dot${active ? ' is-active' : ''}`}
+                          style={{ background: hex }}
+                          title={hex}
+                          onClick={() => toggleColor(hex)}
+                          disabled={saving || (!active && formColors.length >= 5)}
+                          aria-label={`Color ${hex}${active ? ' (seleccionado)' : ''}`}
+                        />
+                      );
+                    })}
+                  </div>
+                )}
+                <div className="acolor__picker-row">
+                  <input
+                    ref={colorPickerRef}
+                    type="color"
+                    className="acolor__picker"
+                    defaultValue="#2563EB"
+                    disabled={saving || formColors.length >= 5}
+                    title="Elegir color personalizado"
+                    onChange={() => {}}
+                  />
+                  <button
+                    type="button"
+                    className="acolor__add-btn"
+                    disabled={saving || formColors.length >= 5}
+                    onClick={() => {
+                      if (colorPickerRef.current) addPickerColor(colorPickerRef.current.value);
+                    }}
+                  >
+                    + Agregar color
+                  </button>
+                  {formColors.length >= 5 && (
+                    <span className="acolor__limit">Máximo alcanzado</span>
+                  )}
+                </div>
+                {formColors.length > 0 && (
+                  <div className="acolor__selected">
+                    {formColors.map((hex) => (
+                      <span key={hex} className="acolor__tag">
+                        <span className="acolor__tag-dot" style={{ background: hex }} />
+                        {hex}
+                        <button
+                          type="button"
+                          className="acolor__tag-remove"
+                          onClick={() => toggleColor(hex)}
+                          disabled={saving}
+                          aria-label={`Quitar color ${hex}`}
+                        >×</button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <div className="afield">
                 <label className="afield__label">Imagen del producto</label>
                 <label className="afield__upload" style={{ cursor: saving ? 'not-allowed' : 'pointer' }}>
@@ -497,6 +636,57 @@ export default function AdminPage() {
                 {catDeleting ? 'Eliminando…' : 'Sí, eliminar'}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Modal cambiar contraseña ── */}
+      {pwModal && (
+        <div className="amodal" onClick={(e) => e.target === e.currentTarget && !pwSaving && setPwModal(false)}>
+          <div className="amodal__card amodal__card--sm">
+            <div className="amodal__head">
+              <h2 className="amodal__title">Cambiar contraseña</h2>
+              <button className="amodal__close" onClick={() => setPwModal(false)} disabled={pwSaving}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <form className="amodal__form" onSubmit={handleChangePassword} noValidate>
+              <div className="afield">
+                <label className="afield__label">Nueva contraseña *</label>
+                <input
+                  className="afield__input"
+                  type="password"
+                  placeholder="Mínimo 6 caracteres"
+                  value={pwNew}
+                  onChange={(e) => { setPwNew(e.target.value.slice(0, 128)); setPwError(''); }}
+                  disabled={pwSaving}
+                  autoFocus
+                  maxLength={128}
+                />
+              </div>
+              <div className="afield">
+                <label className="afield__label">Confirmar nueva contraseña *</label>
+                <input
+                  className="afield__input"
+                  type="password"
+                  placeholder="Repite la nueva contraseña"
+                  value={pwConfirm}
+                  onChange={(e) => { setPwConfirm(e.target.value.slice(0, 128)); setPwError(''); }}
+                  disabled={pwSaving}
+                  maxLength={128}
+                />
+              </div>
+              {pwError && <p className="amodal__error" role="alert">{pwError}</p>}
+              {pwSuccess && <p className="amodal__success" role="status">{pwSuccess}</p>}
+              <div className="amodal__footer">
+                <button type="button" className="amodal__cancel" onClick={() => setPwModal(false)} disabled={pwSaving}>Cancelar</button>
+                <button type="submit" className="amodal__submit" disabled={pwSaving}>
+                  {pwSaving ? 'Guardando…' : 'Cambiar contraseña'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

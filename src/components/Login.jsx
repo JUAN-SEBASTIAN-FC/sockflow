@@ -11,12 +11,18 @@ export default function Login({ onClose }) {
   const [error,    setError]    = useState('');
   const [busy,     setBusy]     = useState(false);
 
+  const sanitizeEmail = (val) => val.replace(/[<>"'`]/g, '').slice(0, 254);
+  const sanitizePassword = (val) => val.slice(0, 128);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email.trim() || !password) { setError('Completa todos los campos.'); return; }
+    const cleanEmail = sanitizeEmail(email).trim();
+    const cleanPassword = sanitizePassword(password);
+    if (!cleanEmail || !cleanPassword) { setError('Completa todos los campos.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) { setError('Ingresa un correo válido.'); return; }
     setBusy(true);
     setError('');
-    const result = await login(email.trim(), password);
+    const result = await login(cleanEmail, cleanPassword);
     setBusy(false);
     if (result?.error) { setError('Correo o contraseña incorrectos.'); return; }
     onClose?.();
@@ -62,9 +68,10 @@ export default function Login({ onClose }) {
                 type="email"
                 placeholder="correo@ejemplo.com"
                 value={email}
-                onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                onChange={(e) => { setEmail(sanitizeEmail(e.target.value)); setError(''); }}
                 autoComplete="email"
                 disabled={busy}
+                maxLength={254}
               />
             </div>
           </div>
@@ -84,9 +91,10 @@ export default function Login({ onClose }) {
                 type="password"
                 placeholder="••••••••"
                 value={password}
-                onChange={(e) => { setPassword(e.target.value); setError(''); }}
+                onChange={(e) => { setPassword(sanitizePassword(e.target.value)); setError(''); }}
                 autoComplete="current-password"
                 disabled={busy}
+                maxLength={128}
               />
             </div>
           </div>
