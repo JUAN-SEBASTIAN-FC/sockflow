@@ -1,19 +1,16 @@
 import './Nav.css';
 
 const links = [
-  { href: '#producto', label: 'Producto' },
   { href: '#catalogo', label: 'Catálogo' },
-  { href: '#stock', label: 'Stock' },
-  { href: '#beneficios', label: 'Beneficios' },
+  { href: '#stock', label: 'Disponibilidad' },
+  { href: '#beneficios', label: 'Domicilios' },
   { href: '#contacto', label: 'Contacto' },
 ];
 
 export default function Nav() {
   return (
     <nav className="nav" data-nav>
-      <a href="#top" className="nav__brand">
-        <img src="assets/sockflow.svg" alt="SockFlow" />
-      </a>
+      <a href="#top" className="nav__brand">Medias Tuluá</a>
 
       <div className="nav__links">
         {links.map((l) => (
@@ -24,7 +21,7 @@ export default function Nav() {
       </div>
 
       <a href="#contacto" className="nav__cta" data-cta>
-        Comenzar ahora
+        Pedir ahora
       </a>
     </nav>
   );

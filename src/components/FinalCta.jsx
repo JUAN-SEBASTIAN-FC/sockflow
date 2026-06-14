@@ -9,14 +9,14 @@ export default function FinalCta() {
         <div className="cta__spark" />
 
         <div className="cta__content">
-          <h2 className="cta__title">Empieza hoy. Crece mañana.</h2>
-          <p className="cta__lead">Únete a cientos de negocios de moda que ya optimizan su inventario de medias con SockFlow.</p>
+          <h2 className="cta__title">Haz tu pedido hoy.</h2>
+          <p className="cta__lead">Escríbenos por WhatsApp o Instagram y recibe tus medias con domicilio gratis en Tuluá.</p>
           <div className="cta__actions">
-            <a href="#contacto" className="cta__primary">
+            <a href="https://wa.me/573169050616" className="cta__primary">
               <span className="cta__primary-shimmer" />
-              <span className="cta__primary-label">Comenzar gratis</span>
+              <span className="cta__primary-label">Pedir por WhatsApp</span>
             </a>
-            <a href="#catalogo" className="cta__demo">Ver demo<span>→</span></a>
+            <a href="#catalogo" className="cta__demo">Ver catálogo<span>→</span></a>
           </div>
         </div>
       </div>

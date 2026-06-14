@@ -52,8 +52,12 @@
   padding-top: 30px;
   border-top: 1px solid #dce9f7;
 }
-.footer__logo {
-  height: 28px;
+.footer__logo-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: #1e293b;
 }
 .footer__copy {
   font-family: var(--font-body);

@@ -26,9 +26,9 @@ export default function StockDashboard() {
     <section id="stock" className="stock">
       <div className="stock__inner">
         <div className="stock__head" data-reveal>
-          <span className="stock__eyebrow">Gestión de stock</span>
-          <h2 className="stock__title">Tu inventario, bajo control</h2>
-          <p className="stock__lead">Un panel sofisticado, no técnico. Niveles, disponibilidad y tendencias, siempre actualizados.</p>
+          <span className="stock__eyebrow">Disponibilidad</span>
+          <h2 className="stock__title">Nuestros productos más vendidos</h2>
+          <p className="stock__lead">Estos son algunos de los modelos favoritos de nuestros clientes en Tuluá.</p>
         </div>
 
         <div className="stock__panel" data-reveal>

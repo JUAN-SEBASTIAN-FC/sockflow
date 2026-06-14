@@ -17,8 +17,8 @@ export default function Catalog() {
       <div className="catalog__inner">
         <div className="catalog__head" data-reveal>
           <span className="catalog__eyebrow">Catálogo</span>
-          <h2 className="catalog__title">Una galería de <span className="catalog__title-accent">medias premium</span></h2>
-          <p className="catalog__lead">Cada modelo, con su stock vinculado en tiempo real. Filtra por tipo de uso y explora la colección.</p>
+          <h2 className="catalog__title">Nuestras <span className="catalog__title-accent">medias</span></h2>
+          <p className="catalog__lead">Explora nuestros modelos y filtra por tipo de uso. Haz tu pedido por WhatsApp o Instagram.</p>
         </div>
 
         <div className="catalog__filters" data-reveal>

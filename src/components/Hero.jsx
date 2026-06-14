@@ -1,10 +1,10 @@
 import './Hero.css';
 
 const chips = [
-  { label: 'Inventario en tiempo real', icon: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></> },
-  { label: 'Edición masiva', icon: <><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" /></> },
-  { label: 'Reportes inteligentes', icon: <><path d="M3 17l5-5 4 4 7-8" /><path d="M16 4h5v5" /></> },
-  { label: 'Multi-almacén', icon: <><path d="M3 9h18M3 15h18M9 3v18" /><rect x="3" y="3" width="18" height="18" rx="2" /></> },
+  { label: 'Domicilio gratis en Tuluá', icon: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></> },
+  { label: 'Variedad de diseños', icon: <><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" /></> },
+  { label: 'Calidad premium', icon: <><path d="M3 17l5-5 4 4 7-8" /><path d="M16 4h5v5" /></> },
+  { label: 'Para toda la familia', icon: <><path d="M3 9h18M3 15h18M9 3v18" /><rect x="3" y="3" width="18" height="18" rx="2" /></> },
 ];
 
 const salesBars = [
@@ -30,19 +30,19 @@ export default function Hero() {
         {/* Columna de texto */}
         <div className="hero__copy" data-reveal>
           <span className="hero__badge">
-            <span className="hero__badge-dot" />Inventario inteligente · 2026
+            <span className="hero__badge-dot" />Medias Tuluá
           </span>
           <h1 className="hero__title">
-            Control total<br />de tu inventario<br />de <span className="hero__title-accent">medias</span>
+            Las mejores<br />medias<br />en <span className="hero__title-accent">Tuluá</span>
           </h1>
-          <p className="hero__lead">Gestiona, edita y controla tu stock en tiempo real. Menos desorden, más ventas.</p>
+          <p className="hero__lead">Diseños para toda la familia y domicilio gratis en la ciudad. Pide por WhatsApp o Instagram.</p>
 
           <div className="hero__actions">
             <a href="#catalogo" className="hero__cta" data-glowcta>
               <span className="hero__cta-shimmer" />
-              <span className="hero__cta-label">Comenzar gratis</span>
+              <span className="hero__cta-label">Ver catálogo</span>
             </a>
-            <a href="#stock" className="hero__demo">Ver demo<span>→</span></a>
+            <a href="#contacto" className="hero__demo">Contáctanos<span>→</span></a>
           </div>
 
           <div className="hero__chips">
@@ -63,7 +63,7 @@ export default function Hero() {
 
           <div className="hero__sock" data-depth="-16" data-sockwrap>
             <div>
-              <img src="assets/sock.png" alt="Media deportiva premium SockFlow" />
+              <img src="assets/sock.png" alt="Medias Tuluá" />
             </div>
           </div>
 

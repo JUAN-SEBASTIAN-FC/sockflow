@@ -1,26 +1,17 @@
 import './Footer.css';
 
-const integrations = ['Shopify', 'WooCommerce', 'Mercado Libre', 'VTEX', 'Dafiti'];
-const legalLinks = ['Privacidad', 'Términos', 'Contacto'];
-
 export default function Footer() {
   return (
     <footer id="contacto" className="footer">
       <div className="footer__inner">
-        <p className="footer__integrations-label" data-reveal>Integraciones nativas con las mejores plataformas</p>
+        <p className="footer__integrations-label" data-reveal>Contáctanos y haz tu pedido</p>
         <div className="footer__integrations" data-reveal>
-          {integrations.map((name) => (
-            <span key={name} className="footer__brand-name">{name}</span>
-          ))}
+          <a className="footer__brand-name" href="https://wa.me/573169050616">WhatsApp 3169050616</a>
+          <a className="footer__brand-name" href="https://instagram.com/medias_tulua">Instagram @Medias_tulua</a>
         </div>
         <div className="footer__bottom">
-          <img className="footer__logo" src="assets/sockflow.svg" alt="SockFlow" />
-          <span className="footer__copy">© 2026 SockFlow · Control total de tu inventario de medias</span>
-          <div className="footer__legal">
-            {legalLinks.map((label) => (
-              <a key={label} href="#">{label}</a>
-            ))}
-          </div>
+          <span className="footer__logo-text">Medias Tuluá</span>
+          <span className="footer__copy">© 2026 Medias Tuluá · Domicilio gratis en la ciudad de Tuluá</span>
         </div>
       </div>
     </footer>
