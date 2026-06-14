@@ -51,12 +51,23 @@ export default function App() {
     setLoginOpen(false);
   };
 
-  // Sincronizar si otra pestaña de la misma app cambia el estado
+  // Restaurar modal cuando Chrome vuelve desde bfcache (pestaña suspendida)
+  useEffect(() => {
+    const onPageShow = (e) => {
+      if (e.persisted) {
+        // La página se restauró desde bfcache — releer localStorage
+        const stored = localStorage.getItem('loginOpen') === '1';
+        setLoginOpen(stored);
+      }
+    };
+    window.addEventListener('pageshow', onPageShow);
+    return () => window.removeEventListener('pageshow', onPageShow);
+  }, []);
+
+  // Sincronizar si otra pestaña cambia el estado
   useEffect(() => {
     const onStorage = (e) => {
-      if (e.key === 'loginOpen') {
-        setLoginOpen(e.newValue === '1');
-      }
+      if (e.key === 'loginOpen') setLoginOpen(e.newValue === '1');
     };
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
